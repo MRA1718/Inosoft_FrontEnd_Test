@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import App from './components/App.vue';
-import { store } from './store/store';
+import App from './App.vue';
+import { store } from './store/index';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 new Vue({
-    el: '#app',
     store,
     render: h => h(App)
-});
+}).$mount('#app');
