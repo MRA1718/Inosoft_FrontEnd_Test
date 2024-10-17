@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in displayedInventory" :key="item.id">
+                <tr v-for="item in displayedData" :key="item.id">
                     <td>{{ item.code }}</td>
                     <td>{{ item.item_id }}</td>
                     <td>{{ item.qty }}</td>
@@ -30,7 +30,7 @@
                     <td>{{ item.connection }}</td>
                     <td>{{ item.size }}</td>
                 </tr>
-                <tr v-if="!displayedInventory.length">
+                <tr v-if="!displayedData.length">
                     <td colspan="11" class="no-data">No data available</td>
                 </tr>
             </tbody>
@@ -41,7 +41,7 @@
 <script>
 export default {
     props: {
-        displayedInventory: {
+        displayedData: {
         type: Array,
         required: true,
         },
@@ -53,16 +53,22 @@ export default {
     .table-container {
         overflow-x: auto;
         margin-top: 20px;
+        border: 1px solid #000; 
+        border-radius: 5px; 
     }
     
     .responsive-table {
         width: 100%;
         border-collapse: collapse;
+        border-style: hidden;
     }
     
     thead {
         background-color: #007bff;
         color: white;
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
     
     th, td {

@@ -2,7 +2,7 @@
     <div class="search-container">
         <div class="filter-container">
       
-        <FilterDropdown
+        <FilterDropdownComponent
             label="Product Type"
             :options="uniqueValues.productType"
             :selected="filters.productType"
@@ -10,7 +10,7 @@
             :resetFilter="() => resetFilter('productType')"
             :count="countByType"
         />
-        <FilterDropdown
+        <FilterDropdownComponent
             label="Grade"
             :options="filteredGrades"
             :selected="filters.grade"
@@ -18,7 +18,7 @@
             :resetFilter="() => resetFilter('grade')"
             :count="countByGrade"
         />
-        <FilterDropdown
+        <FilterDropdownComponent
             label="Size (OD)"
             :options="filteredSizes"
             :selected="filters.size"
@@ -26,7 +26,7 @@
             :resetFilter="() => resetFilter('size')"
             :count="countBySize"
         />
-        <FilterDropdown
+        <FilterDropdownComponent
             label="Connection"
             :options="filteredConnections"
             :selected="filters.connection"
@@ -34,11 +34,11 @@
             :resetFilter="() => resetFilter('connection')"
             :count="countByConnection"
         />
-        <FindButton @find="applyFilters" />
+        <ButtonComponent @find="applyFilters" />
     </div>
 
     <div v-if="showTable" @scroll="handleScroll" class="table-container" ref="tableContainer">
-      <FilteredInventoryTable :displayedInventory="displayedInventory" />
+      <FilteredTableComponent :displayedData="displayedData" />
     </div>
   </div>
 </template>
@@ -48,7 +48,6 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import ButtonComponent from './ButtonComponent.vue';
 import FilterDropdownComponent from './FilterDropdownComponent.vue';
 import FilteredTableComponent from './FilteredTableComponent.vue';
-import { Button } from 'bootstrap';
 
 export default {
     components: {
@@ -154,11 +153,11 @@ export default {
             }
         },
         loadMoreItems() {
-            const currentCount = this.displayedInventory.length;
-            const newItems = this.inventory.slice(currentCount, currentCount + this.pageSize);
+            const currentCount = this.displayedData.length;
+            const newItems = this.data.slice(currentCount, currentCount + this.pageSize);
     
             if (newItems.length) {
-                this.displayedInventory.push(...newItems);
+                this.displayedData.push(...newItems);
             }
         }
     },
@@ -174,7 +173,7 @@ export default {
     }
 
     .table-container {
-        height: 50vh;
+        height: 70vh;
     }
 
     .filter-container {

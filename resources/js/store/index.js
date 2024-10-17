@@ -24,7 +24,7 @@ export default new Vuex.Store({
             state.filteredData = filteredData;
         },
         setUniqueValues(state) {
-            const { inventory } = state;
+            const { data } = state;
             
             const uniqueProductTypes = [...new Set(data.map(item => item.productType))];
             const uniqueGrades = [...new Set(data.map(item => item.grade))];

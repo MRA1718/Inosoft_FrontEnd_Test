@@ -50,20 +50,32 @@ export default {
         };
     },
     computed: {
-        filteredOption(option) {
+        filteredOptions() {
+            return this.options.filter(option =>
+            option.toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
+        },
+    },
+    methods: {
+        selectOption(option) {
             this.selectedValue = option;
             this.searchQuery = this.formatOptionWithCount(option); // Set the selected option and its count in the search bar
             this.onSelect(option);
             this.showOptions = false;
         },
-        resetSelection() {
-            this.selectedValue = '';
-            this.searchQuery = '';
-            this.onSelect('');
-            this.resetFilter();
+            resetSelection() {
+            this.selectedValue = ''; 
+            this.searchQuery = ''; 
+            this.onSelect(''); 
+            this.resetFilter(); 
+        },
+        hideOptions() {
+            setTimeout(() => {
+                this.showOptions = false;
+            }, 200);
         },
         formatOptionWithCount(option) {
-            return `${option} (${this.count[option] || 0})`;
+        return `${option} (${this.count[option] || 0})`;
         },
     },
     watch: {
@@ -72,7 +84,7 @@ export default {
             this.searchQuery = newVal ? this.formatOptionWithCount(newVal) : '';
         },
     },
-}
+};
 </script>
 
 <style scoped>
